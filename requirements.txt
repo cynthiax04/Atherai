@@ -1,0 +1,6 @@
+Flask
+requests
+Werkzeug
+python-dotenv
+openai
+gunicorn
