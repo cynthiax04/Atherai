@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aether AI Assistant</title>
+
+  <link rel="stylesheet" href="/static/style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="bg-glow"></div>
+
+<div class="app-root">
+
+  {% if logged_in %}
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div>
+
+      <div class="logo-box">
+        <div class="logo-icon">✦</div>
+
+        <div>
+          <h1>AETHER</h1>
+          <p>Executive Assistant</p>
+        </div>
+      </div>
+
+      <button class="new-chat" onclick="newChat()">
+        ＋ New Chat
+      </button>
+
+      <!-- HISTORY -->
+      <div class="history-title">
+        Recent Sessions
+      </div>
+
+      <div class="history">
+
+        {% for chat in chats %}
+        <div
+          class="history-item"
+          onclick="loadHistory(
+            `{{ chat.message | escape }}`,
+            `{{ chat.response | escape }}`
+          )"
+        >
+          {{ chat.message }}
+        </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+    <!-- PROFILE -->
+    <div class="profile">
+
+      <div class="avatar">
+        {{ username[0]|upper }}
+      </div>
+
+      <div class="profile-info">
+        <strong>{{ username }}</strong>
+        <small>Online</small>
+      </div>
+
+      <a class="logout" href="/logout">
+        Logout
+      </a>
+
+    </div>
+
+  </aside>
+
+  {% endif %}
+
+  <!-- MAIN -->
+  <main class="chat-area">
+
+    {% if not logged_in %}
+    <div class="auth">
+      <a href="/login">Login</a>
+      <a href="/signup">Signup</a>
+    </div>
+    {% endif %}
+
+    <!-- CHAT CARD -->
+    <div class="voice-card">
+
+      <!-- HERO -->
+<div class="hero" id="heroSection">
+
+  <div class="hero-icon">
+    ✦
+  </div>
+
+  <h1>
+    Good Evening{% if logged_in %}, {{ username }}{% endif %}.
+  </h1>
+
+  <p>
+    Aether AI is ready to assist with advanced reasoning and conversation.
+  </p>
+
+</div>
+
+      <!-- CHAT -->
+      <div id="chatWindow" class="chat-window">
+
+        <!-- DEFAULT MESSAGE -->
+        <div class="bot-msg">
+          Hello 👋 I’m your AI assistant. Ask me anything.
+        </div>
+
+      </div>
+
+      <!-- INPUT -->
+      <div class="controls">
+
+        <input
+          id="msg"
+          placeholder="Instruct Aether AI..."
+          onkeydown="handleKey(event)"
+        />
+        <div id="voiceVisualizer" class="voice-visualizer hidden">
+  <div class="voice-pill">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="voice-text">
+    Listening...
+  </div>
+</div>
+
+        <div class="buttons">
+
+          <button onclick="send()">
+            Send
+          </button>
+
+         <button onclick="startVoice()">
+          <i class="fas fa-microphone" style="font-size: 22px;"></i>
+        </button>
+
+          <button onclick="stopVoice()">
+            ⏹
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>
