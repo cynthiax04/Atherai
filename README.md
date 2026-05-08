@@ -23,7 +23,7 @@ Aether AI Assistant is a Flask-based AI chatbot web application with:
 * SQLite database storage
 * Modern neon UI design
 
-## Lnading page
+## Landing page
 
 ![Landing ](screenshots/landing.png)
 
